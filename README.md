@@ -168,3 +168,89 @@ CeroSpace/
             ├── seller/                 # Halaman utama, pending verifikasi, & dasbor penjual
             ├── admin/                  # Halaman utama & dasbor administrator
             └── api/                    # Seluruh REST API Route Handlers
+```
+
+---
+
+## Panduan Instalasi & Konfigurasi
+
+### 1. Prasyarat Sistem
+Pastikan perangkat Anda telah terpasang:
+- **Node.js** versi `18.x` atau lebih baru (disarankan v20+ LTS)
+- **PostgreSQL** (versi 14+) beserta **pgAdmin 4** atau CLI `psql`
+- **Git**
+
+### 2. Clone Repositori
+```bash
+git clone [https://github.com/mtaqwin/CeroSpace.git](https://github.com/mtaqwin/CeroSpace.git)
+cd CeroSpace
+```
+
+### 3. Persiapan Database PostgreSQL
+1. Buka **pgAdmin 4** atau terminal `psql`, lalu buat database baru bernama **`cerospace_db`**.
+2. Impor dan jalankan skrip SQL dari file `cerospace_db.sql` ke dalam database tersebut:
+   ```bash
+   psql -U postgres -d cerospace_db -f cerospace_db.sql
+   ```
+   *(Atau buka file `cerospace_db.sql` melalui **Query Tool** di pgAdmin 4 lalu klik **Execute**).*
+
+### 4. Konfigurasi Environment Variables
+Masuk ke direktori `cerospace-web`, lalu buat file baru bernama `.env.local` dengan isi berikut:
+
+```env
+# Koneksi Database PostgreSQL
+DATABASE_URL=postgresql://postgres:password_postgres_anda@localhost:5432/cerospace_db
+
+# Konfigurasi NextAuth v5
+AUTH_SECRET=ganti_dengan_string_acak_panjang_minimal_32_karakter
+NEXTAUTH_URL=http://localhost:3000
+```
+
+> **Catatan:** Sesuaikan `postgres` dan `password_postgres_anda` dengan kredensial PostgreSQL lokal Anda. Anda dapat membuat nilai `AUTH_SECRET` secara cepat di terminal dengan menjalankan `npx auth secret`.
+
+### 5. Instalasi Dependensi & Menjalankan Server
+Pastikan terminal berada di dalam folder **`cerospace-web`**, lalu jalankan:
+
+```bash
+cd cerospace-web
+npm install
+npm run dev
+```
+
+Aplikasi akan berjalan di **`http://localhost:3000`**.
+
+---
+
+## Alur Pengujian Aplikasi
+
+Untuk menguji keseluruhan sistem secara *end-to-end*, ikuti skenario berikut:
+
+1. **Alur Pembeli (`buyer`):**
+   - Daftar akun baru sebagai pembeli melalui halaman registrasi atau masuk menggunakan akun pembeli yang tersedia di `cerospace_db.sql`.
+   - Jelajahi produk dari beranda atau halaman `/products`, buka detail produk, lalu tambahkan ke keranjang.
+   - Buka `/cart`, sesuaikan jumlah barang, lalu klik **Checkout**.
+   - Pantau perubahan status pesanan di `/buyer/orders` dan kirimkan rating beserta ulasan setelah pesanan diselesaikan oleh penjual.
+2. **Alur Penjual (`seller`) & Verifikasi Admin:**
+   - Daftar akun baru sebagai penjual; secara otomatis sistem akan mengarahkan akun ke halaman tunggu `/seller/pending`.
+   - Masuk menggunakan akun **Admin**, buka `/admin/dashboard`, lalu setujui (`Approve`) pendaftaran penjual tersebut.
+   - Masuk kembali sebagai penjual, buka `/seller/dashboard`, lengkapi profil toko, tambahkan produk baru beserta foto, dan perbarui status pesanan yang masuk.
+3. **Manajemen Banner Beranda (`admin`):**
+   - Dari `/admin/dashboard`, tambahkan, ubah, atau hapus banner promosi, lalu buka kembali halaman beranda (`/`) untuk memverifikasi perubahan pada slider.
+
+---
+
+## Troubleshooting Singkat
+
+- **Error `ENOENT: no such file or directory, open '.../package.json'`:** Pastikan Anda sudah masuk ke folder aplikasi dengan `cd cerospace-web` sebelum menjalankan `npm install` atau `npm run dev`.
+- **Gagal koneksi database (`ECONNREFUSED` / `password authentication failed`):** Periksa kembali apakah layanan PostgreSQL sudah aktif dan nilai `DATABASE_URL` di `cerospace-web/.env.local` sudah sesuai dengan username, password, dan nama database `cerospace_db`.
+- **Gagal clone di Windows (`Filename too long`):** Jalankan `git config --global core.longpaths true` terlebih dahulu sebelum melakukan `git clone`.
+
+---
+
+## Pengembang
+
+<div align="center">
+  <strong>Muhammad Taqwin Yunus</strong><br/>
+  Program Studi Sistem Informasi — Fakultas Matematika dan Ilmu Pengetahuan Alam<br/>
+  Universitas Hasanuddin
+</div>
