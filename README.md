@@ -68,6 +68,20 @@ Dari sisi backend, seluruh proses bisnis—mulai dari registrasi terenkripsi, va
 
 ---
 
+## Akun Demo (Default Login)
+
+Setelah mengimpor `cerospace_db.sql`, Anda dapat langsung mencoba fitur masing-masing peran (*role*) menggunakan akun bawaan berikut:
+
+| Role | Email | Password | Akses Utama |
+| :--- | :--- | :--- | :--- |
+| **Admin** | `admin@cerospace.com` | `password_admin` | Verifikasi seller (`approve`/`reject`) & kelola banner beranda |
+| **Seller** | `seller@cerospace.com` | `password_seller` | Kelola produk toko & ubah status pesanan masuk |
+| **Buyer** | `buyer@cerospace.com` | `password_buyer` | Belanja, kelola keranjang, checkout, & beri ulasan |
+
+> **Catatan:** Anda juga dapat mendaftarkan akun **Buyer** atau **Seller** baru melalui halaman `/register`. Akun **Seller** yang baru mendaftar akan berstatus `pending` hingga disetujui oleh **Admin**.
+
+---
+
 ## Matriks Hak Akses (RBAC)
 
 Setiap rute dan endpoint dilindungi menggunakan *middleware* NextAuth dan validasi sesi di sisi server:
