@@ -87,6 +87,7 @@ export default function Navbar() {
         >
           <input
             type="text"
+            suppressHydrationWarning
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Cari kaos, jaket, sneakers, topi..."
@@ -94,6 +95,7 @@ export default function Navbar() {
           />
           <button
             type="submit"
+            suppressHydrationWarning
             aria-label="Cari produk"
             className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-300 hover:text-[#f9943b] cursor-pointer"
           >
@@ -208,6 +210,7 @@ export default function Navbar() {
                 </span>
                 <button
                   type="button"
+                  suppressHydrationWarning
                   onClick={() => signOut({ callbackUrl: "/login" })}
                   title="Keluar"
                   className="p-2 rounded-xl text-slate-300 hover:text-rose-400 hover:bg-white/10 transition cursor-pointer"
@@ -222,7 +225,3 @@ export default function Navbar() {
     </header>
   );
 }
-
-
-
-
