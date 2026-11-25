@@ -175,15 +175,6 @@ INSERT INTO products (store_id, category_id, name, description, price, stock, im
         '/uploads/products/uniqlo-zip-hoodie.jpg'
     ),
     (
-        (SELECT id FROM stores WHERE name = 'Uniqlo Official'),
-        (SELECT id FROM categories WHERE slug = 'baju-jaket'),
-        'Uniqlo Windbreaker Parka Navy',
-        'Jaket parka tahan angin warna navy dengan tudung kepala, cocok untuk aktivitas luar ruangan.',
-        599000,
-        12,
-        '/uploads/products/1795162823047-p0.jpg'
-    ),
-    (
         (SELECT id FROM stores WHERE name = 'H&M Official'),
         (SELECT id FROM categories WHERE slug = 'celana-rok'),
         'H&M Relaxed Fit Cargo Trousers',
